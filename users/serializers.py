@@ -35,14 +35,14 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 class StudentRegisterSerializer(serializers.ModelSerializer):
-    # profil = serializers.SlugRelatedField(
-    #     many=False,
-    #     read_only=True,
-    #     slug_field='libelle'
-    # )
+    profilSortie = serializers.SlugRelatedField(
+        many=False,
+        read_only=True,
+        slug_field='libelle'
+    )
     class Meta:
         model = User
-        fields = fields = ('email', 'username', 'password','first_name', 'last_name', 'avatar',)
+        fields = fields = ('email', 'username', 'password','first_name', 'last_name', 'avatar','profilSortie',)
         extra_kwargs = {'password': {'write_only': True}}
     
 
@@ -55,6 +55,7 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         student = Student.objects.create(user=instance)
+        student.profilSortie.add(**validated_data.pop('profilSortie'))
         return instance
 
 class TeacherRegisterSerializer(serializers.ModelSerializer):

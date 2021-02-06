@@ -1,8 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import student_list, MyObtainTokenPairView, Admin_list, Teacher_list, UpdateUser, user_detail, user_list
-
+from groupeCompetence.views import groupeCompetence_list
 router = DefaultRouter()
+
 
 urlpatterns = [
     path('', include(router.urls)),

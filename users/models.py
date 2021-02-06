@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from profil.models import Profil
+from profilSortie.models import ProfilSortie
 
 
 class User(AbstractUser):
@@ -17,6 +18,7 @@ class User(AbstractUser):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profilSortie = models.ManyToManyField(ProfilSortie,related_name="students_profilSortie")
     def __str__(self):
         return self.user.username
 
